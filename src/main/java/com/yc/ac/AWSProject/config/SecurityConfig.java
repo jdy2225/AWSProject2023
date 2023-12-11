@@ -16,15 +16,7 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Bean
-    protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().configurationSource((CorsConfigurationSource) corsConfigurationSource());
-        http
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .formLogin();
 
-        return http.build();
-    }
 
     private Object corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
