@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+
+  <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 50px;
+        }
+
+        form {
+            max-width: 300px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #428bca;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3071a9;
+        }
+    </style>
+</head>
+<body>
+
+<script>
+function registerUser() {
+    var id = document.getElementById("id").value;
+    var password = document.getElementById("password").value;
+
+    // Fetch API를 사용하여 백엔드와 통신
+    fetch('/AWSProject/insert', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id: id,
+            password: password,
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        // 회원가입 성공 또는 실패에 따른 처리
+        if (data) {
+            alert('회원가입 성공!');
+            // 성공 시 리다이렉션 또는 다른 동작 수행
+        } else {
+            alert('회원가입 실패!');
+            // 실패 시 사용자에게 알림 또는 다른 동작 수행
+        }
+    })
+    .catch(error => {
+        console.error('에러 발생:', error);
+    });
+}
+</script>
+<form id="registerForm">
+  <label for="id">User ID:</label>
+  <input type="text" id="id" name="id" required>
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" required>
+  <button type="button" onclick="registerUser()">회원가입</button>
+</form>
+
+
+</body>
+</html>
